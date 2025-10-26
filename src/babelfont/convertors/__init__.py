@@ -1,11 +1,5 @@
-import os
-import sys
-import pkgutil
-import inspect
-import importlib
 import logging
 
-from babelfont.Font import Font
 from babelfont.fontFilters import parse_filter
 
 logger = logging.getLogger(__name__)
@@ -14,7 +8,7 @@ logger = logging.getLogger(__name__)
 class BaseConvertor:
     filename: str
     scratch: object
-    font: Font
+    font: "Font"  # Type hint only, avoid circular import
     compile_only: bool
 
     suffix = ".XXX"
@@ -36,6 +30,8 @@ class BaseConvertor:
 
     @classmethod
     def load(cls, convertor, compile_only=False, filters=True):
+        from babelfont.Font import Font
+
         self = cls()
         self.font = Font()
         # Pass on information to child
@@ -67,42 +63,23 @@ class BaseConvertor:
 
 
 class Convert:
-    convertors = []
-
-    @classmethod
-    def _load_convertors(cls):
-        if cls.convertors:
-            return
-        convertorpath = os.path.join(
-            os.path.dirname(sys.modules[cls.__module__].__file__)
-        )
-        # Additional plugin path here?
-        loaders = pkgutil.iter_modules([convertorpath])
-        for loader, module_name, is_pkg in loaders:
-            spec = loader.find_spec(module_name)
-            _module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(_module)
-            classes = [
-                x[1]
-                for x in inspect.getmembers(_module, inspect.isclass)
-                if issubclass(x[1], BaseConvertor) and x[1] is not BaseConvertor
-            ]
-            cls.convertors.extend(classes)
-
     def __init__(self, filename):
-        self._load_convertors()
         self.filename = filename
         self.scratch = {}
 
     def load_convertor(self, **kwargs):
-        for c in self.convertors:
-            if c.can_load(self, **kwargs):
-                return c
+        from babelfont.convertors.nfsf import Babelfont
+
+        if Babelfont.can_load(self, **kwargs):
+            return Babelfont
+        return None
 
     def save_convertor(self, **kwargs):
-        for c in self.convertors:
-            if c.can_save(self, **kwargs):
-                return c
+        from babelfont.convertors.nfsf import Babelfont
+
+        if Babelfont.can_save(self, **kwargs):
+            return Babelfont
+        return None
 
     def load(self, **kwargs):
         c = self.load_convertor(**kwargs)

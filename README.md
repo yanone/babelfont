@@ -1,43 +1,23 @@
-# Babelfont: Load, examine and save fonts in a variety of formats
+# Babelfont: Load, examine and save fonts in Babelfont format
 
 *This describes Babelfont >3.0, which is a complete rewrite from the previous version.*
 
-Babelfont is a utility for loading fonts and examining fonts in a variety
-of formats. It can also be used to *write* fonts in some of these formats,
-making it possible to convert between font formats.
+Babelfont is a utility for loading and examining fonts in the Babelfont format.
 
-Here are the formats which are currently supported:
+The Babelfont format is a JSON-based font format that provides a simple and
+consistent way to work with font data. It supports single master and variable fonts.
 
-| Format          | Read    | Write |
-|-----------------|---------|-------|
-| Glyphs 2        | partial |       |
-| Glyphs 3        | *       | *     |
-| .glyphspackage  | *       |       |
-| UFO             | *       |       |
-| Designspace     | *       |       |
-| Fontlab VFJ     | partial |       |
-| Fontlab VFB     | partial |       |
-| TTF             | partial | *     |
-| OTF             | partial |       |
-| Glyphr Studio 2 | partial |       |
-| Fontforge SFD   | partial | *     |
-| Fontforge SFDir | partial | *     |
-| Babelfont       | *       | *     |
-
-Babelfont converts all of the above font formats into a intermediary
-set of objects, whose object hierarchy can be seen [here](https://simoncozens.github.io/babelfont). The allows
-the developer to examine any font (single master or variable), without
-needing to worry about the details of each font format.
+The object hierarchy can be seen [here](https://simoncozens.github.io/babelfont).
 
 For example:
 
 ```python
 from babelfont import load
 
-font = load("Myfont.glyphs") # Or .designspace, or whatever
+font = load("Myfont.babelfont")
 default_a = font.default_master.get_glyph_layer("A")
-top_anchor = default_a.anchors_dict["top"].x
+top_anchor = default_a.anchors_dict["top"]
 print("Top anchor = (%i,%i)" % (top_anchor.x, top_anchor.y))
 print("LSB, RSB = (%i,%i)" % (default_a.lsb, default_a.rsb))
-font.save("Myfont.ttf")
+font.save("Myfont-modified.babelfont")
 ```

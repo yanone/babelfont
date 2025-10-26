@@ -127,12 +127,13 @@ class Font(_FontFields, BaseObject):
         )
 
     def save(self, filename: str, **kwargs):
-        """Save the font to a file. The file type is determined by the extension.
-        Any additional keyword arguments are passed to the save method of the
-        appropriate converter."""
-        from .convertors import Convert
+        """Save the font to a Babelfont format file. Any additional keyword
+        arguments are passed to the save method of the Babelfont converter."""
+        from babelfont.convertors.nfsf import Babelfont
+        from babelfont.convertors import Convert
 
-        return Convert(filename).save(self, **kwargs)
+        convertor = Convert(filename)
+        return Babelfont.save(self, convertor, **kwargs)
 
     def master(self, mid: str) -> Optional[Master]:
         """Locates a master by its ID. Returns `None` if not found."""

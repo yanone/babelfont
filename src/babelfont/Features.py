@@ -1,13 +1,15 @@
 from io import StringIO
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Tuple
 
-from babelfont import Font
 from fontTools.feaLib import ast
 from fontTools.feaLib.parser import Parser, SymbolTable
 
 from .BaseObject import BaseObject
+
+if TYPE_CHECKING:
+    from babelfont.Font import Font
 
 PREFIX_MARKER = "# Prefix: "
 PREFIX_RE = re.compile(r"# Prefix: (.*)")
@@ -81,7 +83,7 @@ class Features(BaseObject):
             fea += f"feature {name} {{\n{code}\n}} {name};\n"
         return fea
 
-    def as_ast(self, font: Font) -> Dict[str, Any]:
+    def as_ast(self, font: "Font") -> Dict[str, Any]:
         rv = {
             "prefixes": {},
             "features": [],

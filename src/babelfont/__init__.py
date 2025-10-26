@@ -1,7 +1,6 @@
 from babelfont.Anchor import Anchor
 from babelfont.Axis import Axis
 from babelfont.BaseObject import Color, I18NDictionary, Position
-from babelfont.convertors import BaseConvertor, Convert
 from babelfont.Features import Features
 from babelfont.Font import Font
 from babelfont.Glyph import Glyph
@@ -29,12 +28,15 @@ __all__ = [
     "Color",
     "Position",
     "I18NDictionary",
-    "Convert",
-    "BaseConvertor",
     "Features",
     "load",
 ]
 
 
 def load(filename):
-    return Convert(filename).load()
+    """Load a Babelfont format font file."""
+    from babelfont.convertors.nfsf import Babelfont
+    from babelfont.convertors import Convert
+
+    convertor = Convert(filename)
+    return Babelfont.load(convertor)

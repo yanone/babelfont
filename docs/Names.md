@@ -29,7 +29,7 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
 *If not provided, defaults to* `None`.
 
 
-## Names.designer
+## Names.styleName
 
 * Python type: `I18NDictionary`
 
@@ -37,7 +37,63 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
 *If not provided, defaults to* `None`.
 
 
-## Names.designerURL
+## Names.copyright
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.styleMapFamilyName
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.styleMapStyleName
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.uniqueID
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.fullName
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.version
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.postscriptName
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.trademark
 
 * Python type: `I18NDictionary`
 
@@ -53,7 +109,31 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
 *If not provided, defaults to* `None`.
 
 
+## Names.designer
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.description
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
 ## Names.manufacturerURL
+
+* Python type: `I18NDictionary`
+
+ *Localizable.*
+*If not provided, defaults to* `None`.
+
+
+## Names.designerURL
 
 * Python type: `I18NDictionary`
 
@@ -70,30 +150,6 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
 
 
 ## Names.licenseURL
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.version
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.uniqueID
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.description
 
 * Python type: `I18NDictionary`
 
@@ -142,30 +198,6 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
 
 
 ## Names.WWSSubfamilyName
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.copyright
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.styleMapFamilyName
-
-* Python type: `I18NDictionary`
-
- *Localizable.*
-*If not provided, defaults to* `None`.
-
-
-## Names.trademark
 
 * Python type: `I18NDictionary`
 

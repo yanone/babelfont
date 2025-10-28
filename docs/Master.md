@@ -27,8 +27,16 @@ without the layers becoming lost.)
 * Python type: `dict`
 
 A dictionary mapping axis tags to coordinates
-in order to locate this instance in the design space.
+in order to locate this master in the design space. The coordinates are in designspace units.
 *If not provided, defaults to* `None`.
+
+
+## Master.sparse
+
+* Python type: `bool`
+
+If true, this master is sparse and may not have all glyphs
+*If not provided, defaults to* `False`.
 
 
 ## Master.guides
@@ -45,7 +53,7 @@ A list of guides.
 * Python type: `dict`
 
 A dictionary mapping metric names (string) to metric value (integer). The following
-metric names are reserved: `xHeight,capHeight,ascender,descender`. Other metrics may be added to this dictionary
+metric names are reserved: `xHeight,capHeight,ascender,descender,italicAngle,hheaAscender,hheaDescender,hheaLineGap,winAscent,winDescent,typoAscender,typoDescender,typoLineGap,subscriptXSize,subscriptYSize,subscriptXOffset,subscriptYOffset,superscriptXSize,superscriptYSize,superscriptXOffset,superscriptYOffset,strikeoutSize,strikeoutPosition,underlinePosition,underlineThickness,hheaCaretSlopeRise,hheaCaretSlopeRun,hheaCaretOffset`. Other metrics may be added to this dictionary
 as needed by font clients, but their interpretation is not guaranteed to be
 compatible between clients.
 
@@ -61,19 +69,12 @@ I'll be honest, I haven't worked out how this is meant to work.
 
 ## Master.font
 
-* Python type: `object`
+* Python type: [`Font`](Font.html)
 
 * This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
 
 Within the Python object, provides a reference to the font object containing this master.
 *If not provided, defaults to* `None`.
-
-
-## Master.customOpenTypeValues
-
-* Python type: [[`OTValue`](OTValue.html)]
-
-Any values to be placed in OpenType tables on export to override defaults
 
 
 ## Master._formatspecific

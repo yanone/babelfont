@@ -21,11 +21,19 @@ The name of this instance. *Localizable.*
 A dictionary mapping axis tags to coordinates in order to locate this instance in the design space.
 
 
-## Instance.styleName
+## Instance.variable
 
-* Python type: `I18NDictionary`
+* Python type: `bool`
 
-The style name of this instance. *Localizable.*
+A boolean indicating whether this instance is variable or static.
+*If not provided, defaults to* `False`.
+
+
+## Instance.customNames
+
+* Python type: [`Names`](Names.html)
+
+A dictionary of custom names for this instance.
 
 
 ## Instance._formatspecific

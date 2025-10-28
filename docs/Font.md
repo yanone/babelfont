@@ -31,7 +31,7 @@ The font's units per em.
 
 ## Font.version
 
-* Python type: `(int, int)`
+* Python type: `Tuple`
 
 * Babelfont-JSON type: `[int,int]`
 
@@ -122,17 +122,31 @@ to the current date/time*.
 
 
 
-## Font.customOpenTypeValues
+## Font.custom_opentype_values
 
-* Python type: [[`OTValue`](OTValue.html)]
+* Python type: `Dict`
 
-Any values to be placed in OpenType tables on export to override defaults
+Any values to be placed in OpenType tables on export to override defaults; these must be font-wide. Metrics which may vary by master should be placed in the `metrics` field of a Master.
 
 
 ## Font.features
 
-* Python type: `FontFeatures`
+* Python type: [`Features`](Features.html)
 
 A representation of the font's OpenType features
+
+
+## Font.first_kern_groups
+
+* Python type: `Dict`
+
+A dictionary of kerning groups, where the key is the group name and the value is a list of glyph names in the group.
+
+
+## Font.second_kern_groups
+
+* Python type: `Dict`
+
+A dictionary of kerning groups, where the key is the group name and the value is a list of glyph names in the group.
 
 

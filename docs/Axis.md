@@ -60,10 +60,20 @@ master locations on export.
 
 ## Axis.map
 
-* Python type: `[(int, int)]`
+* Python type: `[Tuple]`
 
 The mapping between userspace and designspace coordinates.
 *If not provided, defaults to* `None`.
+
+
+## Axis.hidden
+
+* Python type: `bool`
+
+If `True`, this axis is hidden from the user interface.
+            Hidden axes are used for internal font generation and are not displayed in the
+            user interface.
+*If not provided, defaults to* `False`.
 
 
 ## Axis._formatspecific

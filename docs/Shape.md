@@ -1,7 +1,7 @@
 ---
 title: Shape
 ---
-Shape(ref: str = None, transform: fontTools.misc.transform.Transform = None, nodes: [<class 'babelfont.Node.Node'>] = None, closed: bool = True, direction: int = 1, _formatspecific: dict = <factory>, _: dict = None)
+Shape(ref: str = None, transform: fontTools.misc.transform.Transform = None, nodes: List[babelfont.Node.Node] = None, closed: bool = True, direction: int = 1, _formatspecific: dict = <factory>, _: dict = None)
 * When writing to Babelfont-JSON, this class must be serialized without newlines
 ## Shape.ref
 
@@ -21,7 +21,7 @@ Shape(ref: str = None, transform: fontTools.misc.transform.Transform = None, nod
 
 ## Shape.nodes
 
-* Python type: `[Node]`
+* Python type: [[`Node`](Node.html)]
 
 
 *If not provided, defaults to* `None`.

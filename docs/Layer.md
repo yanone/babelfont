@@ -1,7 +1,7 @@
 ---
 title: Layer
 ---
-Layer(width: int = 0, height: int = 0, name: str = None, _master: str = None, id: str = <factory>, guides: [<class 'babelfont.Guide.Guide'>] = <factory>, shapes: [<class 'babelfont.Shape.Shape'>] = <factory>, anchors: [<class 'babelfont.Anchor.Anchor'>] = <factory>, color: babelfont.BaseObject.Color = None, layerIndex: int = 0, _background: str = None, isBackground: bool = False, location: [<class 'float'>] = None, _font: object = None, _formatspecific: dict = <factory>, _: dict = None)
+Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: str = None, _master: str = None, id: str = <factory>, guides: List[babelfont.Guide.Guide] = <factory>, shapes: List[babelfont.Shape.Shape] = <factory>, anchors: List[babelfont.Anchor.Anchor] = <factory>, color: babelfont.BaseObject.Color = None, layerIndex: int = 0, background: Optional[str] = None, isBackground: bool = False, location: List[float] = None, _font: Optional[ForwardRef('Font')] = None, _glyph: Optional[ForwardRef('Glyph')] = None, _formatspecific: dict = <factory>, _: dict = None)
 ## Layer.width
 
 * Python type: `int`
@@ -16,6 +16,14 @@ Layer(width: int = 0, height: int = 0, name: str = None, _master: str = None, id
 
 
 *If not provided, defaults to* `0`.
+
+
+## Layer.vertWidth
+
+* Python type: `Optional[int]`
+
+
+*If not provided, defaults to* `None`.
 
 
 ## Layer.name
@@ -80,9 +88,9 @@ Layer(width: int = 0, height: int = 0, name: str = None, _master: str = None, id
 *If not provided, defaults to* `0`.
 
 
-## Layer._background
+## Layer.background
 
-* Python type: `str`
+* Python type: `Optional[str]`
 
 
 *If not provided, defaults to* `None`.
@@ -106,7 +114,17 @@ Layer(width: int = 0, height: int = 0, name: str = None, _master: str = None, id
 
 ## Layer._font
 
-* Python type: `object`
+* Python type: Optional[[`Font`](Font.html)]
+
+* This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
+
+
+*If not provided, defaults to* `None`.
+
+
+## Layer._glyph
+
+* Python type: Optional[[`Glyph`](Glyph.html)]
 
 * This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
 

@@ -13,6 +13,17 @@ tocfile.write("default:\n")
 
 
 def maybelink(t):
+    # Handle string type annotations
+    if isinstance(t, str):
+        if t in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide"]:
+            return "[`%s`](%s.html)" % (t, t)
+        return t
+    # Handle ForwardRef objects
+    if hasattr(t, "__forward_arg__"):
+        arg = t.__forward_arg__
+        if arg in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide"]:
+            return "[`%s`](%s.html)" % (arg, arg)
+        return arg
     if "babelfont" in str(t) and dataclasses.is_dataclass(t):
         return "[`%s`](%s.html)" % (t.__name__, t.__name__)
     if isinstance(t, typing._GenericAlias):
@@ -22,7 +33,9 @@ def maybelink(t):
             return "[%s]" % maybelink(t.__args__[0])
     if isinstance(t, tuple):
         return "(" + ", ".join([e.__name__ for e in t]) + ")"
-    return t.__name__
+    if hasattr(t, "__name__"):
+        return t.__name__
+    return str(t)
 
 
 def describe_dataclass(cls):

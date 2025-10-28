@@ -60,7 +60,7 @@ class _FontFields:
 
 The `GlyphList` structure in the Python object is a dictionary with array-like
 properties (or you might think of it as an array with dictionary-like properties)
-containing [`Glyph`](Glyph.html) objects. The `GlyphList` may be iterated
+containing [`Glyph`](Glyph.md) objects. The `GlyphList` may be iterated
 directly, and may be appended to, but may also be used to index a `Glyph` by
 its name. This is generally what you want:
 

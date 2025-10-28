@@ -37,7 +37,7 @@ Glyph(name: str, production_name: Optional[str] = None, category: str = 'base', 
 
 ## Glyph.layers
 
-* Python type: [[`Layer`](Layer.html)]
+* Python type: [[`Layer`](Layer.md)]
 
 
 

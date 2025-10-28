@@ -31,7 +31,7 @@ A boolean indicating whether this instance is variable or static.
 
 ## Instance.customNames
 
-* Python type: [`Names`](Names.html)
+* Python type: [`Names`](Names.md)
 
 A dictionary of custom names for this instance.
 

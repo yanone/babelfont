@@ -41,7 +41,7 @@ Font version number as a tuple of integers (major, minor).
 
 ## Font.axes
 
-* Python type: [[`Axis`](Axis.html)]
+* Python type: [[`Axis`](Axis.md)]
 
 * When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
 
@@ -50,7 +50,7 @@ A list of axes, in the case of variable/multiple master font. May be empty.
 
 ## Font.instances
 
-* Python type: [[`Instance`](Instance.html)]
+* Python type: [[`Instance`](Instance.md)]
 
 * When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
 
@@ -59,7 +59,7 @@ A list of named/static instances.
 
 ## Font.masters
 
-* Python type: [[`Master`](Master.html)]
+* Python type: [[`Master`](Master.md)]
 
 * When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
 
@@ -117,7 +117,7 @@ to the current date/time*.
 
 ## Font.names
 
-* Python type: [`Names`](Names.html)
+* Python type: [`Names`](Names.md)
 
 
 
@@ -131,7 +131,7 @@ Any values to be placed in OpenType tables on export to override defaults; these
 
 ## Font.features
 
-* Python type: [`Features`](Features.html)
+* Python type: [`Features`](Features.md)
 
 A representation of the font's OpenType features
 

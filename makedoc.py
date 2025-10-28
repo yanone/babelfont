@@ -16,17 +16,17 @@ tocfile.write("default:\n")
 def maybelink(t):
     # Handle string type annotations
     if isinstance(t, str):
-        if t in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide"]:
-            return "[`%s`](%s.html)" % (t, t)
+        if t in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide", "Features"]:
+            return "[`%s`](%s.md)" % (t, t)
         return t
     # Handle ForwardRef objects
     if hasattr(t, "__forward_arg__"):
         arg = t.__forward_arg__
-        if arg in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide"]:
-            return "[`%s`](%s.html)" % (arg, arg)
+        if arg in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide", "Features"]:
+            return "[`%s`](%s.md)" % (arg, arg)
         return arg
     if "babelfont" in str(t) and dataclasses.is_dataclass(t):
-        return "[`%s`](%s.html)" % (t.__name__, t.__name__)
+        return "[`%s`](%s.md)" % (t.__name__, t.__name__)
     if isinstance(t, typing._GenericAlias):
         if t._name == "Optional":
             return "Optional[%s]" % maybelink(t.__args__[0])
@@ -45,7 +45,7 @@ def describe_dataclass(cls):
 
     name = cls.__name__
     f = open("docs/%s.md" % name, "w")
-    tocfile.write("  - title: %s\n    url: %s.html\n" % (name, name))
+    tocfile.write("  - title: %s\n    url: %s.md\n" % (name, name))
     f.write("---\ntitle: %s\n---\n" % name)
 
     f.write(cls.__doc__)
@@ -165,7 +165,7 @@ def add_type_node(cls):
         label,
         shape="none",
         fontname="Avenir",
-        href="%s.html" % cls.__name__,
+        href="%s.md" % cls.__name__,
     )
     donetypes[cls] = True
 

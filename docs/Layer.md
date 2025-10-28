@@ -51,14 +51,14 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 ## Layer.guides
 
-* Python type: [[`Guide`](Guide.html)]
+* Python type: [[`Guide`](Guide.md)]
 
 
 
 
 ## Layer.shapes
 
-* Python type: [[`Shape`](Shape.html)]
+* Python type: [[`Shape`](Shape.md)]
 
 * When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
 
@@ -67,7 +67,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 ## Layer.anchors
 
-* Python type: [[`Anchor`](Anchor.html)]
+* Python type: [[`Anchor`](Anchor.md)]
 
 
 
@@ -114,7 +114,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 ## Layer._font
 
-* Python type: Optional[[`Font`](Font.html)]
+* Python type: Optional[[`Font`](Font.md)]
 
 * This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
 
@@ -124,7 +124,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 ## Layer._glyph
 
-* Python type: Optional[[`Glyph`](Glyph.html)]
+* Python type: Optional[[`Glyph`](Glyph.md)]
 
 * This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
 

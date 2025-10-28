@@ -21,7 +21,7 @@ Shape(ref: str = None, transform: fontTools.misc.transform.Transform = None, nod
 
 ## Shape.nodes
 
-* Python type: [[`Node`](Node.html)]
+* Python type: [[`Node`](Node.md)]
 
 
 *If not provided, defaults to* `None`.

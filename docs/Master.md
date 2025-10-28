@@ -41,7 +41,7 @@ If true, this master is sparse and may not have all glyphs
 
 ## Master.guides
 
-* Python type: [[`Guide`](Guide.html)]
+* Python type: [[`Guide`](Guide.md)]
 
 * When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
 
@@ -69,7 +69,7 @@ I'll be honest, I haven't worked out how this is meant to work.
 
 ## Master.font
 
-* Python type: [`Font`](Font.html)
+* Python type: [`Font`](Font.md)
 
 * This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
 

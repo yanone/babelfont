@@ -7,6 +7,7 @@ from graphviz import Digraph
 import babelfont
 from babelfont import *
 from babelfont.BaseObject import I18NDictionary
+from babelfont.Features import Features
 
 tocfile = open("docs/_data/navigation.yml", "w")
 tocfile.write("default:\n")
@@ -104,6 +105,7 @@ describe_dataclass(Axis)
 describe_dataclass(Instance)
 describe_dataclass(Master)
 describe_dataclass(Names)
+describe_dataclass(Features)
 describe_dataclass(Glyph)
 describe_dataclass(Layer)
 describe_dataclass(Guide)

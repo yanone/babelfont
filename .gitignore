@@ -114,7 +114,7 @@ ENV/
 *.glyphs
 *.pyc 
 build
-docs
+# docs
 fontFeatures.egg-info
 fonts
 dist

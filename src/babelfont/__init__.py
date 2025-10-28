@@ -11,6 +11,11 @@ from babelfont.Master import Master
 from babelfont.Names import Names
 from babelfont.Node import Node
 from babelfont.Shape import Shape, Transform
+from babelfont.ai_docs import (
+    generate_all_docs,
+    generate_class_docs,
+    generate_minimal_docs,
+)
 
 __all__ = [
     "Font",
@@ -30,6 +35,9 @@ __all__ = [
     "I18NDictionary",
     "Features",
     "load",
+    "generate_all_docs",
+    "generate_class_docs",
+    "generate_minimal_docs",
 ]
 
 

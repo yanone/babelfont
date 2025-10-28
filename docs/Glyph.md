@@ -1,6 +1,11 @@
 ---
 title: Glyph
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | **Glyph** | [Layer](Layer.md) | [Guide](Guide.md) | [Shape](Shape.md) | [Anchor](Anchor.md)
+
+---
+
 Glyph(name: str, production_name: Optional[str] = None, category: str = 'base', codepoints: List[int] = <factory>, layers: List[babelfont.Layer.Layer] = <factory>, exported: bool = True, direction: str = 'LTR', _formatspecific: dict = <factory>, _: dict = None)
 * When writing to Babelfont-JSON, this class must be serialized without newlines
 ## Glyph.name

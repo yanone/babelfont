@@ -1,6 +1,11 @@
 ---
 title: Axis
 ---
+
+[Font](Font.md) | **Axis** | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | [Layer](Layer.md) | [Guide](Guide.md) | [Shape](Shape.md) | [Anchor](Anchor.md)
+
+---
+
 Represents an axis in a multiple master or variable font.
 * When writing to Babelfont-JSON, this class must be serialized without newlines
 ## Axis.name

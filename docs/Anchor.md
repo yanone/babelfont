@@ -1,6 +1,11 @@
 ---
 title: Anchor
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | [Layer](Layer.md) | [Guide](Guide.md) | [Shape](Shape.md) | **Anchor**
+
+---
+
 Anchor(name: str, x: int = 0, y: int = 0, _formatspecific: dict = <factory>, _: dict = None)
 ## Anchor.name
 

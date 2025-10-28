@@ -1,6 +1,11 @@
 ---
 title: Layer
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | **Layer** | [Guide](Guide.md) | [Shape](Shape.md) | [Anchor](Anchor.md)
+
+---
+
 Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: str = None, _master: str = None, id: str = <factory>, guides: List[babelfont.Guide.Guide] = <factory>, shapes: List[babelfont.Shape.Shape] = <factory>, anchors: List[babelfont.Anchor.Anchor] = <factory>, color: babelfont.BaseObject.Color = None, layerIndex: int = 0, background: Optional[str] = None, isBackground: bool = False, location: List[float] = None, _font: Optional[ForwardRef('Font')] = None, _glyph: Optional[ForwardRef('Glyph')] = None, _formatspecific: dict = <factory>, _: dict = None)
 ## Layer.width
 

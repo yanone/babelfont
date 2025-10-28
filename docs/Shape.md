@@ -1,6 +1,11 @@
 ---
 title: Shape
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | [Layer](Layer.md) | [Guide](Guide.md) | **Shape** | [Anchor](Anchor.md)
+
+---
+
 Shape(ref: str = None, transform: fontTools.misc.transform.Transform = None, nodes: List[babelfont.Node.Node] = None, closed: bool = True, direction: int = 1, _formatspecific: dict = <factory>, _: dict = None)
 * When writing to Babelfont-JSON, this class must be serialized without newlines
 ## Shape.ref

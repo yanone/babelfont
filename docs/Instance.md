@@ -1,6 +1,11 @@
 ---
 title: Instance
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | **Instance** | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | [Layer](Layer.md) | [Guide](Guide.md) | [Shape](Shape.md) | [Anchor](Anchor.md)
+
+---
+
 An object representing a named or static instance.
 * When writing to Babelfont-JSON, this class must be serialized without newlines
 ## Instance.name

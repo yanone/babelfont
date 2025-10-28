@@ -1,6 +1,11 @@
 ---
 title: Guide
 ---
+
+[Font](Font.md) | [Axis](Axis.md) | [Instance](Instance.md) | [Master](Master.md) | [Names](Names.md) | [Features](Features.md) | [Glyph](Glyph.md) | [Layer](Layer.md) | **Guide** | [Shape](Shape.md) | [Anchor](Anchor.md)
+
+---
+
 Guide(pos: babelfont.BaseObject.Position, name: str = None, color: babelfont.BaseObject.Color = None, _formatspecific: dict = <factory>, _: dict = None)
 ## Guide.pos
 

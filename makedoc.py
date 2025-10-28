@@ -12,6 +12,34 @@ from babelfont.Features import Features
 tocfile = open("docs/_data/navigation.yml", "w")
 tocfile.write("default:\n")
 
+# List of all documentation classes in order
+DOC_CLASSES = [
+    "Font",
+    "Axis",
+    "Instance",
+    "Master",
+    "Names",
+    "Features",
+    "Glyph",
+    "Layer",
+    "Guide",
+    "Shape",
+    "Anchor",
+]
+
+
+def generate_navigation(current_class):
+    """Generate navigation links for the top of each doc file."""
+    nav_parts = []
+    for cls_name in DOC_CLASSES:
+        if cls_name == current_class:
+            # Current page - no link, just bold text
+            nav_parts.append(f"**{cls_name}**")
+        else:
+            # Link to other pages
+            nav_parts.append(f"[{cls_name}]({cls_name}.md)")
+    return " | ".join(nav_parts)
+
 
 def maybelink(t):
     # Handle string type annotations
@@ -64,8 +92,15 @@ def describe_dataclass(cls):
     name = cls.__name__
     f = open("docs/%s.md" % name, "w")
     tocfile.write("  - title: %s\n    url: %s.md\n" % (name, name))
-    f.write("---\ntitle: %s\n---\n" % name)
 
+    # Write front matter
+    f.write("---\ntitle: %s\n---\n\n" % name)
+
+    # Write navigation header
+    f.write(generate_navigation(name))
+    f.write("\n\n---\n\n")
+
+    # Write class description
     f.write(cls.__doc__)
     f.write("\n")
     if cls._write_one_line:

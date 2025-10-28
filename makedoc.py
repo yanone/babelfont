@@ -16,13 +16,31 @@ tocfile.write("default:\n")
 def maybelink(t):
     # Handle string type annotations
     if isinstance(t, str):
-        if t in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide", "Features"]:
+        if t in [
+            "Font",
+            "Glyph",
+            "Layer",
+            "Master",
+            "Shape",
+            "Anchor",
+            "Guide",
+            "Features",
+        ]:
             return "[`%s`](%s.md)" % (t, t)
         return t
     # Handle ForwardRef objects
     if hasattr(t, "__forward_arg__"):
         arg = t.__forward_arg__
-        if arg in ["Font", "Glyph", "Layer", "Master", "Shape", "Anchor", "Guide", "Features"]:
+        if arg in [
+            "Font",
+            "Glyph",
+            "Layer",
+            "Master",
+            "Shape",
+            "Anchor",
+            "Guide",
+            "Features",
+        ]:
             return "[`%s`](%s.md)" % (arg, arg)
         return arg
     if "babelfont" in str(t) and dataclasses.is_dataclass(t):

@@ -7,7 +7,7 @@ Babelfont is a utility for loading and examining fonts in the Babelfont format.
 The Babelfont format is a JSON-based font format that provides a simple and
 consistent way to work with font data. It supports single master and variable fonts.
 
-The object hierarchy can be seen [here](https://simoncozens.github.io/babelfont).
+The object hierarchy can be seen [here](docs/Font.md).
 
 For example:
 
@@ -21,7 +21,3 @@ print("Top anchor = (%i,%i)" % (top_anchor.x, top_anchor.y))
 print("LSB, RSB = (%i,%i)" % (default_a.lsb, default_a.rsb))
 font.save("Myfont-modified.babelfont")
 ```
-
-## Documentation
-
-For detailed documentation of the Babelfont Python API, see [Font.md](docs/Font.md).

@@ -21,3 +21,7 @@ print("Top anchor = (%i,%i)" % (top_anchor.x, top_anchor.y))
 print("LSB, RSB = (%i,%i)" % (default_a.lsb, default_a.rsb))
 font.save("Myfont-modified.babelfont")
 ```
+
+## Documentation
+
+For detailed documentation of the Babelfont Python API, see [Font.md](docs/Font.md).

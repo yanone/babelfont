@@ -10,7 +10,7 @@ where = ["src"]
 
 [project]
 dynamic = ["version"]
-name = "context"
+name = "contextfonteditor"
 description = "Load, examine and save fonts in Context format"
 authors = [
     { name = "Simon Cozens", email= "simon@simon-cozens.org" }

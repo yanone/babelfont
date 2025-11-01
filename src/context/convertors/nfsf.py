@@ -63,6 +63,9 @@ class Context(BaseConvertor):
         self._load_metadata(info)
         self._load_features()
 
+        # Store the filename for later saving
+        self.font.filename = self.filename
+
         # Mark entire font as clean for file_saving since it matches disk state
         # But keep dirty for canvas_render so UI knows to draw
         self._mark_all_clean_for_file_saving(self.font)

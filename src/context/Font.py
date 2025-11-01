@@ -96,6 +96,15 @@ to the current date/time*.""",
             "description": "Any values to be placed in OpenType tables on export to override defaults; these must be font-wide. Metrics which may vary by master should be placed in the `metrics` field of a Master."
         },
     )
+    filename: Optional[str] = field(
+        default=None,
+        metadata={
+            "python_only": True,
+            "description": """The file path from which this font was loaded
+or to which it should be saved. This is automatically set when loading
+a font and used as the default path when saving.""",
+        },
+    )
     features: Features = field(
         default_factory=Features,
         metadata={
@@ -149,14 +158,30 @@ class Font(_FontFields, BaseObject):
             len(self.masters),
         )
 
-    def save(self, filename: str, **kwargs):
+    def save(self, filename: str = None, **kwargs):
         """Save the font to a Context format file. Any additional keyword
-        arguments are passed to the save method of the Context converter."""
+        arguments are passed to the save method of the Context converter.
+
+        Args:
+            filename: Path to save the font. If not provided, uses the font's
+                     stored filename (from where it was loaded).
+        """
         from context.convertors.nfsf import Context
         from context.convertors import Convert
 
+        # Use stored filename if no filename provided
+        if filename is None:
+            if self.filename is None:
+                raise ValueError("No filename provided and font has no stored filename")
+            filename = self.filename
+
         convertor = Convert(filename)
-        return Context.save(self, convertor, **kwargs)
+        result = Context.save(self, convertor, **kwargs)
+
+        # Update the stored filename after successful save
+        self.filename = filename
+
+        return result
 
     def master(self, mid: str) -> Optional[Master]:
         """Locates a master by its ID. Returns `None` if not found."""

@@ -14,14 +14,21 @@ python -m build --wheel
 
 # Get the most recent wheel file
 WHEEL_FILE=$(ls -t dist/*.whl | head -1)
+WHEEL_NAME=$(basename "$WHEEL_FILE")
 
-# Copy to font editor with fixed name
+# Copy to font editor with proper wheel name
 DEST_DIR="../context-font-editor/webapp/wheels"
-DEST_FILE="$DEST_DIR/contextfonteditor.whl"
+DEST_FILE="$DEST_DIR/$WHEEL_NAME"
+
+echo ""
+echo "Cleaning old wheels from font editor..."
+mkdir -p "$DEST_DIR"
+# Remove any existing contextfonteditor wheels
+rm -f "$DEST_DIR"/contextfonteditor-*.whl
+echo "Old wheels removed"
 
 echo ""
 echo "Copying wheel to font editor..."
-mkdir -p "$DEST_DIR"
 cp "$WHEEL_FILE" "$DEST_FILE"
 
 echo ""

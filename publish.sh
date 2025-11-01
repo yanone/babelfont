@@ -1,6 +1,7 @@
 #!/bin/bash
-# Publish the context-py package to PyPI
-# This script builds and uploads the package to PyPI using twine
+# Publish the context-py package to PyPI via GitHub Actions
+# This script creates a version tag and pushes it to GitHub,
+# which triggers the automated CI/CD pipeline with Trusted Publishing
 
 set -e  # Exit on any error
 
@@ -9,70 +10,85 @@ echo "Publishing context-py package to PyPI"
 echo "==========================================="
 echo ""
 
-# Check if twine is installed
-if ! command -v twine &> /dev/null; then
-    echo "Error: twine is not installed."
-    echo "Install it with: pip install twine"
+# Check if we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Error: Not in a git repository"
     exit 1
 fi
 
-# Check if we have credentials
-echo "Checking PyPI credentials..."
-if [ -z "$TWINE_USERNAME" ] && [ -z "$TWINE_PASSWORD" ] && [ ! -f ~/.pypirc ]; then
-    echo "Warning: No PyPI credentials found."
-    echo "You can set them via:"
-    echo "  - Environment variables: TWINE_USERNAME and TWINE_PASSWORD"
-    echo "  - Or configure ~/.pypirc file"
-    echo ""
-    read -p "Do you want to continue? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
+# Check for uncommitted changes
+if ! git diff-index --quiet HEAD --; then
+    echo "Error: You have uncommitted changes. Please commit or stash them first."
+    git status --short
+    exit 1
 fi
 
-# Clean previous builds
-echo "Cleaning previous builds..."
-rm -rf build/
-rm -rf dist/
-rm -rf src/*.egg-info
-find . -name '*.pyc' -exec rm -f {} +
-find . -name '__pycache__' -exec rm -fr {} +
-echo "✓ Cleaned"
+# Get version number from user
+echo "Enter the version number (e.g., 1.0.0):"
+read -r VERSION
+
+# Validate version format (basic check)
+if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+    echo "Error: Invalid version format. Use semantic versioning (e.g., 1.0.0 or 1.0.0-beta.1)"
+    exit 1
+fi
+
+TAG_NAME="v${VERSION}"
+
+# Check if tag already exists
+if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+    echo "Error: Tag $TAG_NAME already exists"
+    exit 1
+fi
+
+echo ""
+echo "This will:"
+echo "  1. Create git tag: $TAG_NAME"
+echo "  2. Push tag to GitHub"
+echo "  3. Trigger GitHub Actions to build and publish to PyPI"
+echo ""
+echo "Current branch: $(git branch --show-current)"
+echo "Latest commit: $(git log -1 --oneline)"
 echo ""
 
-# Build the package
-echo "Building source distribution and wheel..."
-python -m build
-echo "✓ Built"
-echo ""
-
-# Show what will be uploaded
-echo "Files to be uploaded:"
-ls -lh dist/
-echo ""
-
-# Check the distribution
-echo "Checking package with twine..."
-twine check dist/*
-echo "✓ Package check passed"
-echo ""
-
-# Ask for confirmation before uploading
-read -p "Upload to PyPI? (y/n) " -n 1 -r
+# Confirm
+read -p "Continue? (y/n) " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "Upload cancelled."
+    echo "Cancelled."
     exit 0
 fi
 
-# Upload to PyPI
-echo "Uploading to PyPI..."
-twine upload dist/*
+# Optional: Add release notes
+echo ""
+echo "Enter release notes (press Ctrl+D when done, or Ctrl+C to skip):"
+RELEASE_NOTES=$(cat)
+
+# Create annotated tag
+if [ -z "$RELEASE_NOTES" ]; then
+    git tag -a "$TAG_NAME" -m "Release $VERSION"
+else
+    git tag -a "$TAG_NAME" -m "$RELEASE_NOTES"
+fi
+
+echo ""
+echo "✓ Tag $TAG_NAME created"
+
+# Push the tag
+echo "Pushing tag to GitHub..."
+git push origin "$TAG_NAME"
 
 echo ""
 echo "==========================================="
-echo "✓ Package published successfully!"
+echo "✓ Tag pushed successfully!"
 echo "==========================================="
 echo ""
-echo "You can now install it with: pip install context"
+echo "GitHub Actions will now:"
+echo "  - Build the package"
+echo "  - Create a GitHub release"
+echo "  - Publish to PyPI using Trusted Publishing"
+echo ""
+echo "Monitor progress at:"
+echo "https://github.com/yanone/context-py/actions"
+echo ""
+echo "Once published, install with: pip install context"

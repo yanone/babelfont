@@ -24,14 +24,33 @@ class _GlyphFields:
 class Glyph(BaseObject, _GlyphFields):
     _write_one_line = True
 
+    def _mark_children_clean(self, context):
+        """Recursively mark children clean."""
+        for layer in self.layers:
+            layer.mark_clean(context, recursive=True)
+
     @property
     def babelfont_filename(self):
         return os.path.join("glyphs", (userNameToFileName(self.name) + ".nfsglyph"))
 
 
 class GlyphList(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._parent_font = None
+
+    def _set_parent_font(self, font):
+        """Set the parent font for dirty tracking."""
+        self._parent_font = font
+
     def append(self, thing):
         self[thing.name] = thing
+        # Mark font dirty when glyph is added
+        if self._parent_font:
+            from .BaseObject import DIRTY_FILE_SAVING, DIRTY_CANVAS_RENDER
+
+            self._parent_font.mark_dirty(DIRTY_FILE_SAVING, field_name="glyphs")
+            self._parent_font.mark_dirty(DIRTY_CANVAS_RENDER, field_name="glyphs")
 
     def write(self, stream, indent):
         stream.write(b"[")

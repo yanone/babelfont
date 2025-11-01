@@ -120,6 +120,29 @@ to the current date/time*.""",
 class Font(_FontFields, BaseObject):
     """Represents a font, with one or more masters."""
 
+    def __post_init__(self):
+        super().__post_init__()
+        # Set up parent reference for GlyphList dirty tracking
+        # (must be done even if glyphs is empty, so appends work later)
+        self.glyphs._set_parent_font(self)
+        # Set parent for names, features
+        self.names._set_parent(self)
+        self.features._set_parent(self)
+
+    def _mark_children_clean(self, context):
+        """Recursively mark children clean."""
+        for glyph in self.glyphs:
+            glyph.mark_clean(context, recursive=True)
+        for master in self.masters:
+            master.mark_clean(context, recursive=True)
+        for axis in self.axes:
+            axis.mark_clean(context, recursive=False)
+        for instance in self.instances:
+            instance.mark_clean(context, recursive=False)
+        # Clean names and features
+        self.names.mark_clean(context, recursive=False)
+        self.features.mark_clean(context, recursive=False)
+
     def __repr__(self):
         return "<Font '%s' (%i masters)>" % (
             self.names.familyName.get_default(),

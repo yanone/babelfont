@@ -1,6 +1,14 @@
 from context.Anchor import Anchor
 from context.Axis import Axis
-from context.BaseObject import Color, I18NDictionary, Position
+from context.BaseObject import (
+    Color,
+    I18NDictionary,
+    Position,
+    DIRTY_FILE_SAVING,
+    DIRTY_CANVAS_RENDER,
+    DIRTY_UNDO,
+    DIRTY_COMPILE,
+)
 from context.Features import Features
 from context.Font import Font
 from context.Glyph import Glyph
@@ -38,6 +46,10 @@ __all__ = [
     "generate_all_docs",
     "generate_class_docs",
     "generate_minimal_docs",
+    "DIRTY_FILE_SAVING",
+    "DIRTY_CANVAS_RENDER",
+    "DIRTY_UNDO",
+    "DIRTY_COMPILE",
 ]
 
 

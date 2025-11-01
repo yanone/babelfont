@@ -24,6 +24,11 @@ class _ShapeFields:
 
 @dataclass
 class Shape(BaseObject, _ShapeFields):
+    def _mark_children_clean(self, context):
+        """Recursively mark children clean."""
+        # Nodes don't inherit from BaseObject, so nothing to clean
+        pass
+
     @property
     def _write_one_line(self):
         return self.is_component

@@ -58,6 +58,7 @@ class Names(BaseObject):
     WWSSubfamilyName: I18NDictionary = None  # Name ID 22
 
     def __post_init__(self):
+        super().__post_init__()
         for k in fields(self):
             if not getattr(self, k.name):
                 setattr(self, k.name, I18NDictionary())

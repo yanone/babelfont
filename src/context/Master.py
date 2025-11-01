@@ -109,6 +109,11 @@ class Master(BaseObject, _MasterFields):
         if isinstance(self.name, str):
             self.name = I18NDictionary.with_default(self.name)
 
+    def _mark_children_clean(self, context):
+        """Recursively mark children clean."""
+        for guide in self.guides:
+            guide.mark_clean(context, recursive=False)
+
     def get_glyph_layer(self, glyphname: str) -> Optional[Layer]:
         g = self.font.glyphs[glyphname]
         for layer in g.layers:

@@ -1,8 +1,9 @@
 from dataclasses import dataclass, fields, field
-from typing import Union
+from typing import Union, Optional
 import orjson
 from collections import namedtuple
 import datetime
+import weakref
 
 
 class IncompatibleMastersError(ValueError):
@@ -12,6 +13,12 @@ class IncompatibleMastersError(ValueError):
 Color = namedtuple("Color", "r,g,b,a", defaults=[0, 0, 0, 0])
 Position = namedtuple("Position", "x,y,angle", defaults=[0, 0, 0])
 Number = Union[int, float]
+
+# Standard dirty flag context names
+DIRTY_FILE_SAVING = "file_saving"
+DIRTY_CANVAS_RENDER = "canvas_render"
+DIRTY_UNDO = "undo"
+DIRTY_COMPILE = "compile"
 
 
 class I18NDictionary(dict):
@@ -107,9 +114,121 @@ is exported not as `_formatspecific` but as a simple underscore (`_`).
     def __post_init__(self):
         if self._:
             self._formatspecific = self._
+        # Initialize dirty tracking (not part of dataclass fields)
+        # Only initialize if not already set (to avoid resetting in subclass __post_init__)
+        if not hasattr(self, "_dirty_flags"):
+            object.__setattr__(self, "_dirty_flags", None)
+        if not hasattr(self, "_dirty_fields"):
+            object.__setattr__(self, "_dirty_fields", None)
+        if not hasattr(self, "_parent_ref"):
+            object.__setattr__(self, "_parent_ref", None)
 
     _write_one_line = False
     _separate_items = {}
+
+    def mark_dirty(self, context=DIRTY_FILE_SAVING, field_name=None, propagate=True):
+        """
+        Mark this object as dirty in the given context.
+
+        Args:
+            context: The context name (e.g., 'file_saving', 'canvas_render')
+            field_name: Optional specific field that changed
+            propagate: Whether to propagate dirty flag to parent
+        """
+        if self._dirty_flags is None:
+            object.__setattr__(self, "_dirty_flags", {})
+        self._dirty_flags[context] = True
+
+        if field_name:
+            if self._dirty_fields is None:
+                object.__setattr__(self, "_dirty_fields", {})
+            if context not in self._dirty_fields:
+                self._dirty_fields[context] = set()
+            self._dirty_fields[context].add(field_name)
+
+        if propagate:
+            parent = self._get_parent()
+            if parent is not None:
+                parent.mark_dirty(context, propagate=True)
+
+    def mark_clean(self, context=DIRTY_FILE_SAVING, recursive=False):
+        """
+        Mark this object as clean in the given context.
+
+        Args:
+            context: The context name to mark clean
+            recursive: Whether to recursively mark children clean
+        """
+        if self._dirty_flags:
+            self._dirty_flags.pop(context, None)
+            if not self._dirty_flags:  # Empty dict, set to None
+                object.__setattr__(self, "_dirty_flags", None)
+
+        if self._dirty_fields:
+            self._dirty_fields.pop(context, None)
+            if not self._dirty_fields:  # Empty dict, set to None
+                object.__setattr__(self, "_dirty_fields", None)
+
+        if recursive:
+            self._mark_children_clean(context)
+
+    def is_dirty(self, context=DIRTY_FILE_SAVING):
+        """Check if this object is dirty in the given context."""
+        if self._dirty_flags:
+            return self._dirty_flags.get(context, False)
+        return False
+
+    def get_dirty_fields(self, context=DIRTY_FILE_SAVING):
+        """Get the set of dirty fields for the given context."""
+        if self._dirty_fields and context in self._dirty_fields:
+            return self._dirty_fields[context].copy()
+        return set()
+
+    def _set_parent(self, parent):
+        """Set parent reference using weakref to avoid circular references."""
+        if parent is not None:
+            ref = weakref.ref(parent)
+            object.__setattr__(self, "_parent_ref", ref)
+        else:
+            object.__setattr__(self, "_parent_ref", None)
+
+    def _get_parent(self):
+        """Get parent object from weak reference."""
+        if self._parent_ref is not None:
+            return self._parent_ref()
+        return None
+
+    def _mark_children_clean(self, context):
+        """
+        Override in subclasses to recursively mark children clean.
+        Default implementation does nothing.
+        """
+        pass
+
+    def __setattr__(self, name, value):
+        """Override setattr to automatically track changes."""
+        # Skip internal fields and initialization
+        if name.startswith("_") or not hasattr(self, "__dataclass_fields__"):
+            object.__setattr__(self, name, value)
+            return
+
+        # Skip tracking if dirty flags not yet initialized
+        if not hasattr(self, "_dirty_flags"):
+            object.__setattr__(self, name, value)
+            return
+
+        # Only track if the field exists and value actually changed
+        if name in self.__dataclass_fields__:
+            old_value = getattr(self, name, None)
+            if old_value != value:
+                object.__setattr__(self, name, value)
+                # Mark dirty for all standard contexts
+                self.mark_dirty(DIRTY_FILE_SAVING, field_name=name, propagate=True)
+                self.mark_dirty(DIRTY_CANVAS_RENDER, field_name=name, propagate=True)
+            else:
+                object.__setattr__(self, name, value)
+        else:
+            object.__setattr__(self, name, value)
 
     def _should_separate_when_serializing(self, key):
         if (

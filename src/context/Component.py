@@ -4,7 +4,7 @@ from .BaseObject import BaseObject
 
 @dataclass
 class Component(BaseObject):
-    name: str
+    name: str = None
     position: list = None
     transform: list = None
 

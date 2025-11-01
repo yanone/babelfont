@@ -51,6 +51,15 @@ class _LayerFields:
 
 @dataclass
 class Layer(BaseObject, _LayerFields):
+    def _mark_children_clean(self, context):
+        """Recursively mark children clean."""
+        for shape in self.shapes:
+            shape.mark_clean(context, recursive=True)
+        for anchor in self.anchors:
+            anchor.mark_clean(context, recursive=False)
+        for guide in self.guides:
+            guide.mark_clean(context, recursive=False)
+
     @property
     def master(self):
         assert self._font

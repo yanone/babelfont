@@ -1,10 +1,6 @@
-from io import StringIO
 import re
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Dict, List, Tuple
-
-from fontTools.feaLib import ast
-from fontTools.feaLib.parser import Parser, SymbolTable
 
 from .BaseObject import BaseObject
 
@@ -44,30 +40,66 @@ class Features(BaseObject):
     @classmethod
     def from_fea(cls, fea: str, glyphNames=()) -> "Features":
         """Load features from a .fea file."""
-        parsed = Parser(
-            StringIO(fea), followIncludes=False, glyphNames=glyphNames
-        ).parse()
         features = Features()
         currentPrefix = "anonymous"
-        for statement in parsed.statements:
-            if isinstance(statement, ast.GlyphClassDefinition):
-                statement.glyphs.asFea()  # This builds .original
-                if statement.glyphs.original:
-                    features.classes[statement.name] = [
-                        ast.asFea(x) for x in statement.glyphs.original
-                    ]
-                else:
-                    features.classes[statement.name] = list(statement.glyphs.glyphs)
-            elif isinstance(statement, ast.FeatureBlock):
-                features.features.append((statement.name, ast.Block.asFea(statement)))
-            elif isinstance(statement, ast.Comment) and (
-                m := re.match(PREFIX_RE, statement.text)
-            ):
-                currentPrefix = m.group(1)
-            else:
+
+        lines = fea.split("\n")
+        i = 0
+
+        while i < len(lines):
+            line = lines[i].strip()
+
+            # Handle glyph class definitions
+            if line.startswith("@") and "=" in line:
+                match = re.match(r"@(\w+)\s*=\s*\[(.*?)\];?", line)
+                if match:
+                    class_name = match.group(1)
+                    class_content = match.group(2).strip()
+                    features.classes[class_name] = class_content.split()
+                i += 1
+                continue
+
+            # Handle prefix markers
+            if line.startswith("# Prefix:"):
+                match = re.match(PREFIX_RE, line)
+                if match:
+                    currentPrefix = match.group(1)
+                i += 1
+                continue
+
+            # Handle feature blocks
+            if line.startswith("feature "):
+                match = re.match(r"feature\s+(\w+)\s*\{", line)
+                if match:
+                    feature_name = match.group(1)
+                    feature_code = ""
+                    i += 1
+
+                    # Collect lines until we find the closing brace
+                    brace_count = 1
+                    while i < len(lines) and brace_count > 0:
+                        curr_line = lines[i]
+                        brace_count += curr_line.count("{") - curr_line.count("}")
+
+                        if brace_count > 0:
+                            feature_code += curr_line + "\n"
+                        i += 1
+
+                    features.features.append((feature_name, feature_code.rstrip()))
+                    continue
+
+            # Everything else goes into prefixes
+            if line:  # Skip empty lines
                 if currentPrefix not in features.prefixes:
                     features.prefixes[currentPrefix] = ""
-                features.prefixes[currentPrefix] += statement.asFea()
+                features.prefixes[currentPrefix] += lines[i] + "\n"
+
+            i += 1
+
+        # Clean up trailing newlines in prefixes
+        for prefix in features.prefixes:
+            features.prefixes[prefix] = features.prefixes[prefix].rstrip("\n")
+
         return features
 
     def to_fea(self) -> str:
@@ -84,6 +116,10 @@ class Features(BaseObject):
         return fea
 
     def as_ast(self, font: "Font") -> Dict[str, Any]:
+        from io import StringIO
+        from fontTools.feaLib import ast
+        from fontTools.feaLib.parser import Parser, SymbolTable
+
         rv = {
             "prefixes": {},
             "features": [],

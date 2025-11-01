@@ -1,8 +1,8 @@
 import logging
 from typing import List
 
-from babelfont.Font import Font
-from babelfont.Glyph import GlyphList
+from context.Font import Font
+from context.Glyph import GlyphList
 from .anchorPropagation import _propagate_anchors
 
 logger = logging.getLogger(__name__)

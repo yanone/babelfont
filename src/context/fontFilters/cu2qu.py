@@ -2,7 +2,7 @@ import logging
 
 from fontTools.cu2qu.ufo import glyphs_to_quadratic
 
-from babelfont.Font import Font
+from context.Font import Font
 
 
 logger = logging.getLogger(__name__)

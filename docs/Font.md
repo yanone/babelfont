@@ -12,7 +12,7 @@ Represents a font, with one or more masters.
 * Python type: `dict`
 
 
-Each object in Babelfont has an optional attached dictionary to allow the storage
+Each object in Context has an optional attached dictionary to allow the storage
 of format-specific information. Font creation software may store any additional
 information that they wish to have preserved on import and export under a
 namespaced (reverse-domain) key in this dictionary. For example, information
@@ -21,7 +21,7 @@ The value stored under this key may be any data serializable in JSON; typically
 it will be a `dict`.
 
 Note that there is an important distinction between the Python object format
-of this field and the Babelfont-JSON representation. When stored to JSON, this key
+of this field and the Context-JSON representation. When stored to JSON, this key
 is exported not as `_formatspecific` but as a simple underscore (`_`).
 
 
@@ -38,7 +38,7 @@ The font's units per em.
 
 * Python type: `Tuple`
 
-* Babelfont-JSON type: `[int,int]`
+* Context-JSON type: `[int,int]`
 
 Font version number as a tuple of integers (major, minor).
 *If not provided, defaults to* `(1, 0)`.
@@ -48,7 +48,7 @@ Font version number as a tuple of integers (major, minor).
 
 * Python type: [[`Axis`](Axis.md)]
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 A list of axes, in the case of variable/multiple master font. May be empty.
 
@@ -57,7 +57,7 @@ A list of axes, in the case of variable/multiple master font. May be empty.
 
 * Python type: [[`Instance`](Instance.md)]
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 A list of named/static instances.
 
@@ -66,7 +66,7 @@ A list of named/static instances.
 
 * Python type: [[`Master`](Master.md)]
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 A list of the font's masters.
 
@@ -75,11 +75,11 @@ A list of the font's masters.
 
 * Python type: `GlyphList`
 
-* Babelfont-JSON type: `[dict]`
+* Context-JSON type: `[dict]`
 
-* When writing to Babelfont-JSON, this structure is stored under the separate file `glyphs.json`.
+* When writing to Context-JSON, this structure is stored under the separate file `glyphs.json`.
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 A list of all glyphs supported in the font.
 
@@ -113,9 +113,9 @@ Any user-defined textual note about this font.
 
 * Python type: `datetime`
 
-* Babelfont-JSON type: `str`
+* Context-JSON type: `str`
 
-The font's date. When writing to Babelfont-JSON, this
+The font's date. When writing to Context-JSON, this
 should be stored in the format `%Y-%m-%d %H:%M:%S`. *If not provided, defaults
 to the current date/time*.
 

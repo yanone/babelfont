@@ -3,8 +3,8 @@ import logging
 from fontTools.feaLib import ast
 from fontTools.misc.visitor import Visitor
 
-from babelfont.Font import Font
-from babelfont.Glyph import GlyphList
+from context.Font import Font
+from context.Glyph import GlyphList
 
 logger = logging.getLogger(__name__)
 

@@ -10,8 +10,8 @@ where = ["src"]
 
 [project]
 dynamic = ["version"]
-name = "babelfont"
-description = "Load, examine and save fonts in Babelfont format"
+name = "context"
+description = "Load, examine and save fonts in Context format"
 authors = [
     { name = "Simon Cozens", email= "simon@simon-cozens.org" }
 ]
@@ -28,7 +28,7 @@ dev = [
 ]
 
 [project.scripts]
-babelfont = 'babelfont.__main__:main'
+context = 'context.__main__:main'
 
 [tool.pytest.ini_options]
 filterwarnings = "ignore::DeprecationWarning"

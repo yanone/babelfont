@@ -7,7 +7,7 @@ from ufomerge.layout import LayoutSubsetter
 from fontTools.feaLib import ast
 from fontTools.misc.visitor import Visitor
 
-from babelfont.Font import Font
+from context.Font import Font
 from .rename import _drop_wrapper
 
 logger = logging.getLogger(__name__)

@@ -83,7 +83,7 @@ glyph_ampersand = font.glyphs["ampersand"]
     date: datetime = field(
         default_factory=datetime.now,
         metadata={
-            "description": """The font's date. When writing to Babelfont-JSON, this
+            "description": """The font's date. When writing to Context-JSON, this
 should be stored in the format `%Y-%m-%d %H:%M:%S`. *If not provided, defaults
 to the current date/time*.""",
             "json_type": "str",
@@ -127,13 +127,13 @@ class Font(_FontFields, BaseObject):
         )
 
     def save(self, filename: str, **kwargs):
-        """Save the font to a Babelfont format file. Any additional keyword
-        arguments are passed to the save method of the Babelfont converter."""
-        from babelfont.convertors.nfsf import Babelfont
-        from babelfont.convertors import Convert
+        """Save the font to a Context format file. Any additional keyword
+        arguments are passed to the save method of the Context converter."""
+        from context.convertors.nfsf import Context
+        from context.convertors import Convert
 
         convertor = Convert(filename)
-        return Babelfont.save(self, convertor, **kwargs)
+        return Context.save(self, convertor, **kwargs)
 
     def master(self, mid: str) -> Optional[Master]:
         """Locates a master by its ID. Returns `None` if not found."""

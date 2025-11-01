@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING, Dict, List
 
 from fontTools.misc.transform import Transform
 
-from babelfont.Anchor import Anchor
+from context.Anchor import Anchor
 
 if TYPE_CHECKING:
-    from babelfont import Glyph, Shape, Transform
-    from babelfont.Font import Font
-    from babelfont.Layer import Layer
+    from context import Glyph, Shape, Transform
+    from context.Font import Font
+    from context.Layer import Layer
 
 logger = logging.getLogger(__name__)
 

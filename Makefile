@@ -49,7 +49,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 babelfont tests
+	flake8 context tests
 
 test: ## run tests quickly with the default Python
 	$(PYTHON) setup.py test
@@ -58,7 +58,7 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source babelfont setup.py test
+	coverage run --source context setup.py test
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html

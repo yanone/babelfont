@@ -4,7 +4,7 @@
 
 set -e
 
-echo "Building Babelfont wheel for Pyodide..."
+echo "Building context-py wheel for Pyodide..."
 
 # Ensure we have the correct build version
 pip install 'build~=1.2.0'

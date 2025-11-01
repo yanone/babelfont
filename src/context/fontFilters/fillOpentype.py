@@ -1,6 +1,6 @@
 import logging
 
-from babelfont.Font import Font
+from context.Font import Font
 from fontTools.misc.timeTools import timestampSinceEpoch
 from fontTools.misc.fixedTools import otRound
 

@@ -1,12 +1,12 @@
 # AI Documentation Generator
 
-The `babelfont.ai_docs` module provides utilities for generating AI-friendly documentation
+The `context.ai_docs` module provides utilities for generating AI-friendly documentation
 that can be embedded in LLM/AI assistant prompts.
 
 ## Why?
 
 When working with AI coding assistants, providing concise, natural-language documentation
-about Babelfont's structure helps the AI understand how to work with the library. This
+about Context's structure helps the AI understand how to work with the library. This
 module generates documentation that:
 
 - Uses natural language descriptions from docstrings
@@ -19,7 +19,7 @@ module generates documentation that:
 ### Minimal Documentation (Recommended for AI Prompts)
 
 ```python
-from babelfont import generate_minimal_docs
+from context import generate_minimal_docs
 
 # Generate a quick reference focused on the most commonly used classes
 docs = generate_minimal_docs()
@@ -32,7 +32,7 @@ you'll use most often.
 ### Single Class Documentation
 
 ```python
-from babelfont import generate_class_docs, Font
+from context import generate_class_docs, Font
 
 # Generate documentation for a specific class
 font_docs = generate_class_docs(Font, include_private=False)
@@ -42,9 +42,9 @@ print(font_docs)
 ### Full Documentation
 
 ```python
-from babelfont import generate_all_docs
+from context import generate_all_docs
 
-# Generate documentation for all Babelfont classes
+# Generate documentation for all Context classes
 all_docs = generate_all_docs(include_private=False)
 print(all_docs)
 ```
@@ -52,7 +52,7 @@ print(all_docs)
 ### Custom Class Selection
 
 ```python
-from babelfont import generate_all_docs, Font, Glyph, Layer
+from context import generate_all_docs, Font, Glyph, Layer
 
 # Generate documentation for specific classes
 custom_docs = generate_all_docs(classes=[Font, Glyph, Layer])
@@ -64,9 +64,9 @@ print(custom_docs)
 Here's what the minimal documentation looks like:
 
 ```
-# Babelfont Quick Reference
+# Context Quick Reference
 
-Babelfont is a font manipulation library. Key concepts:
+Context is a font manipulation library. Key concepts:
 
 - **Font**: Top-level object representing a font family with one or more masters
 - **Master**: A single master/style in a font (e.g., Regular, Bold)
@@ -96,12 +96,12 @@ Represents a font, with one or more masters.
 To use this with an AI assistant, include the documentation in your prompt:
 
 ```python
-from babelfont import generate_minimal_docs
+from context import generate_minimal_docs
 
 docs = generate_minimal_docs()
 
 prompt = f"""
-I'm working with the Babelfont library. Here's the documentation:
+I'm working with the Context library. Here's the documentation:
 
 {docs}
 
@@ -132,7 +132,7 @@ Generates documentation for a single dataclass.
 Generates documentation for multiple classes.
 
 **Args:**
-- `classes`: List of classes to document. If None, documents all main Babelfont classes
+- `classes`: List of classes to document. If None, documents all main Context classes
 - `include_private`: If True, include private fields
 
 **Returns:** Combined documentation string

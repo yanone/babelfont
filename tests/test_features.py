@@ -1,4 +1,4 @@
-from babelfont import Features
+from context import Features
 
 
 def test_parse():

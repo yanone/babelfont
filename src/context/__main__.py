@@ -2,8 +2,8 @@ import argparse
 import logging
 import sys
 
-from babelfont import load
-from babelfont.fontFilters import FILTERS, parse_filter
+from context import load
+from context.fontFilters import FILTERS, parse_filter
 
 LOG_FORMAT = "%(message)s"
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="babelfont", description="Load and manipulate Babelfont format files"
+        prog="context", description="Load and manipulate Context format files"
     )
     parser.add_argument(
         "--log-level",
@@ -33,8 +33,8 @@ def main():
         action="append",
         choices=FILTERS.keys(),
     )
-    parser.add_argument("input", metavar="IN", help="Input Babelfont file")
-    parser.add_argument("output", metavar="OUT", help="Output Babelfont file")
+    parser.add_argument("input", metavar="IN", help="Input Context file")
+    parser.add_argument("output", metavar="OUT", help="Output Context file")
     args = parser.parse_args()
 
     try:

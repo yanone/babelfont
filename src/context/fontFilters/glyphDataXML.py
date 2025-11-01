@@ -2,7 +2,7 @@ import logging
 from importlib.resources import files
 from xml.etree import ElementTree
 
-from babelfont import Font
+from context import Font
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ def bake_in_glyphdata(font: Font, args=None):
     logger.info("Baking in glyph data")
 
     if not args or "file" not in args:
-        data_dir = files("babelfont.data")
+        data_dir = files("context.data")
         file = data_dir / "GlyphData.xml"
     else:
         file = args["file"]

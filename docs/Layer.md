@@ -6,7 +6,7 @@ title: Layer
 
 ---
 
-Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: str = None, _master: str = None, id: str = <factory>, guides: List[babelfont.Guide.Guide] = <factory>, shapes: List[babelfont.Shape.Shape] = <factory>, anchors: List[babelfont.Anchor.Anchor] = <factory>, color: babelfont.BaseObject.Color = None, layerIndex: int = 0, background: Optional[str] = None, isBackground: bool = False, location: List[float] = None, _font: Optional[ForwardRef('Font')] = None, _glyph: Optional[ForwardRef('Glyph')] = None, _formatspecific: dict = <factory>, _: dict = None)
+Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: str = None, _master: str = None, id: str = <factory>, guides: List[context.Guide.Guide] = <factory>, shapes: List[context.Shape.Shape] = <factory>, anchors: List[context.Anchor.Anchor] = <factory>, color: context.BaseObject.Color = None, layerIndex: int = 0, background: Optional[str] = None, isBackground: bool = False, location: List[float] = None, _font: Optional[ForwardRef('Font')] = None, _glyph: Optional[ForwardRef('Glyph')] = None, _formatspecific: dict = <factory>, _: dict = None)
 ## Layer.width
 
 * Python type: `int`
@@ -65,7 +65,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 * Python type: [[`Shape`](Shape.md)]
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 
 
@@ -121,7 +121,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 * Python type: Optional[[`Font`](Font.md)]
 
-* This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
+* This field only exists as an attribute of the the Python object and should not be written to Context-JSON.
 
 
 *If not provided, defaults to* `None`.
@@ -131,7 +131,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 
 * Python type: Optional[[`Glyph`](Glyph.md)]
 
-* This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
+* This field only exists as an attribute of the the Python object and should not be written to Context-JSON.
 
 
 *If not provided, defaults to* `None`.
@@ -142,7 +142,7 @@ Layer(width: int = 0, height: int = 0, vertWidth: Optional[int] = None, name: st
 * Python type: `dict`
 
 
-Each object in Babelfont has an optional attached dictionary to allow the storage
+Each object in Context has an optional attached dictionary to allow the storage
 of format-specific information. Font creation software may store any additional
 information that they wish to have preserved on import and export under a
 namespaced (reverse-domain) key in this dictionary. For example, information
@@ -151,7 +151,7 @@ The value stored under this key may be any data serializable in JSON; typically
 it will be a `dict`.
 
 Note that there is an important distinction between the Python object format
-of this field and the Babelfont-JSON representation. When stored to JSON, this key
+of this field and the Context-JSON representation. When stored to JSON, this key
 is exported not as `_formatspecific` but as a simple underscore (`_`).
 
 

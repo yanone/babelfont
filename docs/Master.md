@@ -48,7 +48,7 @@ If true, this master is sparse and may not have all glyphs
 
 * Python type: [[`Guide`](Guide.md)]
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 A list of guides.
 
@@ -67,7 +67,7 @@ compatible between clients.
 
 * Python type: `dict`
 
-* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.
+* When writing to Context-JSON, each item in the list must be placed on a separate line.
 
 I'll be honest, I haven't worked out how this is meant to work.
 
@@ -76,7 +76,7 @@ I'll be honest, I haven't worked out how this is meant to work.
 
 * Python type: [`Font`](Font.md)
 
-* This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.
+* This field only exists as an attribute of the the Python object and should not be written to Context-JSON.
 
 Within the Python object, provides a reference to the font object containing this master.
 *If not provided, defaults to* `None`.
@@ -87,7 +87,7 @@ Within the Python object, provides a reference to the font object containing thi
 * Python type: `dict`
 
 
-Each object in Babelfont has an optional attached dictionary to allow the storage
+Each object in Context has an optional attached dictionary to allow the storage
 of format-specific information. Font creation software may store any additional
 information that they wish to have preserved on import and export under a
 namespaced (reverse-domain) key in this dictionary. For example, information
@@ -96,7 +96,7 @@ The value stored under this key may be any data serializable in JSON; typically
 it will be a `dict`.
 
 Note that there is an important distinction between the Python object format
-of this field and the Babelfont-JSON representation. When stored to JSON, this key
+of this field and the Context-JSON representation. When stored to JSON, this key
 is exported not as `_formatspecific` but as a simple underscore (`_`).
 
 

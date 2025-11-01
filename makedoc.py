@@ -4,10 +4,10 @@ import typing
 
 from graphviz import Digraph
 
-import babelfont
-from babelfont import *
-from babelfont.BaseObject import I18NDictionary
-from babelfont.Features import Features
+import context
+from context import *
+from context.BaseObject import I18NDictionary
+from context.Features import Features
 
 tocfile = open("docs/_data/navigation.yml", "w")
 tocfile.write("default:\n")
@@ -71,7 +71,7 @@ def maybelink(t):
         ]:
             return "[`%s`](%s.md)" % (arg, arg)
         return arg
-    if "babelfont" in str(t) and dataclasses.is_dataclass(t):
+    if "context" in str(t) and dataclasses.is_dataclass(t):
         return "[`%s`](%s.md)" % (t.__name__, t.__name__)
     if isinstance(t, typing._GenericAlias):
         if t._name == "Optional":
@@ -105,7 +105,7 @@ def describe_dataclass(cls):
     f.write("\n")
     if cls._write_one_line:
         f.write(
-            "* When writing to Babelfont-JSON, this class must be serialized without newlines\n"
+            "* When writing to Context-JSON, this class must be serialized without newlines\n"
         )
     for k in dataclasses.fields(cls):
         if k.name == "_":
@@ -121,7 +121,7 @@ def describe_dataclass(cls):
         f.write("## %s.%s\n\n" % (name, k.name))
         f.write("* Python type: %s\n\n" % stringytype)
         if "json_type" in k.metadata:
-            f.write("* Babelfont-JSON type: `%s`\n\n" % k.metadata["json_type"])
+            f.write("* Context-JSON type: `%s`\n\n" % k.metadata["json_type"])
         if (
             k.default is dataclasses.MISSING
             and k.default_factory is dataclasses.MISSING
@@ -129,17 +129,17 @@ def describe_dataclass(cls):
             f.write("* **Required field**\n\n")
         if "json_location" in k.metadata:
             f.write(
-                "* When writing to Babelfont-JSON, this structure is stored under the separate file `%s`.\n\n"
+                "* When writing to Context-JSON, this structure is stored under the separate file `%s`.\n\n"
                 % k.metadata["json_location"]
             )
 
         if "separate_items" in k.metadata:
             f.write(
-                "* When writing to Babelfont-JSON, each item in the list must be placed on a separate line.\n\n"
+                "* When writing to Context-JSON, each item in the list must be placed on a separate line.\n\n"
             )
         if "python_only" in k.metadata:
             f.write(
-                "* This field only exists as an attribute of the the Python object and should not be written to Babelfont-JSON.\n\n"
+                "* This field only exists as an attribute of the the Python object and should not be written to Context-JSON.\n\n"
             )
 
         if "description" in k.metadata:
@@ -166,7 +166,7 @@ describe_dataclass(Shape)
 describe_dataclass(Anchor)
 
 
-dot = Digraph(comment="Babelfont Format", format="svg")
+dot = Digraph(comment="Context Format", format="svg")
 dot.attr(rankdir="LR")
 dot.attr(overlap="false")
 donetypes = {}
@@ -174,7 +174,7 @@ donetypes = {}
 
 def add_type_node(cls):
     def chktype(t, port):
-        if "babelfont" in str(t) and dataclasses.is_dataclass(t):
+        if "context" in str(t) and dataclasses.is_dataclass(t):
             add_type_node(t)
             dot.edge(cls.__name__ + ":" + port, t.__name__)
         if isinstance(t, tuple):
@@ -230,7 +230,7 @@ output = re.sub(r"(?s)^.*<svg", "<svg", dot.pipe().decode("utf-8"))
 out = open("docs/index.md", "w")
 out.write(
     """---
-title: Babelfont Format
+title: Context Format
 toc: false
 ---
 

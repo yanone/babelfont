@@ -1,6 +1,6 @@
 from datetime import datetime
-from babelfont import Glyph, Layer, Node, Shape, Master, Guide, Anchor, Axis, Instance
-from babelfont.convertors import BaseConvertor
+from context import Glyph, Layer, Node, Shape, Master, Guide, Anchor, Axis, Instance
+from context.convertors import BaseConvertor
 from pathlib import Path
 import orjson
 import os
@@ -9,8 +9,8 @@ import os
 # One would hope this would be easy.
 
 
-class Babelfont(BaseConvertor):
-    suffix = ".babelfont"
+class Context(BaseConvertor):
+    suffix = ".context"
 
     def _load_file(self, filename):
         contents = open(os.path.join(self.filename, filename), "r").read()
@@ -35,7 +35,7 @@ class Babelfont(BaseConvertor):
         for g in glyphs:
             glyph = Glyph(**g)
             self.font.glyphs.append(glyph)
-            for json_layer in self._load_file(glyph.babelfont_filename):
+            for json_layer in self._load_file(glyph.context_filename):
                 layer = self._inflate_layer(json_layer)
                 glyph.layers.append(layer)
 
@@ -101,6 +101,6 @@ class Babelfont(BaseConvertor):
             for g in self.font.glyphs:
                 glyphpath = path / "glyphs"
                 glyphpath.mkdir(parents=True, exist_ok=True)
-                with open(path / g.babelfont_filename, "wb") as f2:
+                with open(path / g.context_filename, "wb") as f2:
                     g._write_value(f2, "layers", g.layers)
             self.font._write_value(f, "glyphs", self.font.glyphs)

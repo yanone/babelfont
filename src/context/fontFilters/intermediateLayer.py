@@ -3,7 +3,7 @@ import uuid
 from collections import defaultdict
 from typing import Dict, Optional
 
-from babelfont import Font, Layer, Master
+from context import Font, Layer, Master
 
 logger = logging.getLogger(__name__)
 

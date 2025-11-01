@@ -1,6 +1,6 @@
 import logging
 
-from babelfont.Font import Font
+from context.Font import Font
 
 logger = logging.getLogger(__name__)
 

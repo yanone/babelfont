@@ -1,4 +1,4 @@
-"""Generate AI-friendly documentation for Babelfont classes.
+"""Generate AI-friendly documentation for Context classes.
 
 This module provides utilities to generate concise, natural language documentation
 suitable for inclusion in AI/LLM prompts.
@@ -128,7 +128,7 @@ def generate_all_docs(classes: list = None, include_private: bool = False) -> st
     """Generate documentation for multiple classes.
 
     Args:
-        classes: List of classes to document. If None, documents all main Babelfont classes
+        classes: List of classes to document. If None, documents all main Context classes
         include_private: If True, include private fields
 
     Returns:
@@ -165,9 +165,9 @@ def generate_all_docs(classes: list = None, include_private: bool = False) -> st
         ]
 
     out = StringIO()
-    out.write("# Babelfont Format Documentation\n\n")
+    out.write("# Context Format Documentation\n\n")
     out.write(
-        "Babelfont is a JSON-based font format for working with single master and variable fonts.\n\n"
+        "Context is a JSON-based font format for working with single master and variable fonts.\n\n"
     )
 
     for cls in classes:
@@ -186,8 +186,8 @@ def generate_minimal_docs() -> str:
     from . import Font, Glyph, Layer, Master
 
     out = StringIO()
-    out.write("# Babelfont Quick Reference\n\n")
-    out.write("Babelfont is a font manipulation library. Key concepts:\n\n")
+    out.write("# Context Quick Reference\n\n")
+    out.write("Context is a font manipulation library. Key concepts:\n\n")
     out.write(
         "- **Font**: Top-level object representing a font family with one or more masters\n"
     )

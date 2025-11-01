@@ -9,7 +9,7 @@ from fontTools.feaLib.parser import Parser, SymbolTable
 from .BaseObject import BaseObject
 
 if TYPE_CHECKING:
-    from babelfont.Font import Font
+    from context.Font import Font
 
 PREFIX_MARKER = "# Prefix: "
 PREFIX_RE = re.compile(r"# Prefix: (.*)")

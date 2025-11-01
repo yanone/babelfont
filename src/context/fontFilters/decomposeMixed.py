@@ -1,7 +1,7 @@
 import logging
 
-from babelfont import Glyph
-from babelfont.Font import Font
+from context import Glyph
+from context.Font import Font
 
 logger = logging.getLogger(__name__)
 

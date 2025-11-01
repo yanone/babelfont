@@ -1,6 +1,6 @@
 import logging
 
-from babelfont.fontFilters import parse_filter
+from context.fontFilters import parse_filter
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class BaseConvertor:
 
     @classmethod
     def load(cls, convertor, compile_only=False, filters=True):
-        from babelfont.Font import Font
+        from context.Font import Font
 
         self = cls()
         self.font = Font()
@@ -68,17 +68,17 @@ class Convert:
         self.scratch = {}
 
     def load_convertor(self, **kwargs):
-        from babelfont.convertors.nfsf import Babelfont
+        from context.convertors.nfsf import Context
 
-        if Babelfont.can_load(self, **kwargs):
-            return Babelfont
+        if Context.can_load(self, **kwargs):
+            return Context
         return None
 
     def save_convertor(self, **kwargs):
-        from babelfont.convertors.nfsf import Babelfont
+        from context.convertors.nfsf import Context
 
-        if Babelfont.can_save(self, **kwargs):
-            return Babelfont
+        if Context.can_save(self, **kwargs):
+            return Context
         return None
 
     def load(self, **kwargs):

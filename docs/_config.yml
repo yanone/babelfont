@@ -8,7 +8,7 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
-title: "Babelfont Format"
+title: "Context Format"
 defaults:
   # _posts
   - values:

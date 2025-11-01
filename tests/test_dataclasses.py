@@ -1,4 +1,4 @@
-from babelfont import Axis, Glyph
+from context import Axis, Glyph
 from io import BytesIO
 
 def test_propagate_format_specific():

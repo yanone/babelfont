@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example: Generate AI-friendly documentation for Babelfont.
+"""Example: Generate AI-friendly documentation for Context.
 
 This script demonstrates how to generate documentation suitable for
 including in LLM/AI prompts.
@@ -11,12 +11,12 @@ import os
 # Add parent src directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from babelfont.ai_docs import (
+from context.ai_docs import (
     generate_minimal_docs,
     generate_class_docs,
     generate_all_docs,
 )
-from babelfont import Font, Glyph
+from context import Font, Glyph
 
 
 def example_minimal():

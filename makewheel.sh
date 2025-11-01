@@ -12,7 +12,20 @@ pip install 'build~=1.2.0'
 # Build the wheel
 python -m build --wheel
 
+# Get the most recent wheel file
+WHEEL_FILE=$(ls -t dist/*.whl | head -1)
+
+# Copy to font editor with fixed name
+DEST_DIR="../context-font-editor/webapp/wheels"
+DEST_FILE="$DEST_DIR/contextfonteditor.whl"
+
+echo ""
+echo "Copying wheel to font editor..."
+mkdir -p "$DEST_DIR"
+cp "$WHEEL_FILE" "$DEST_FILE"
+
 echo ""
 echo "Wheel built successfully!"
-echo "Output location: dist/"
-ls -lh dist/*.whl | tail -1
+echo "Source: $WHEEL_FILE"
+echo "Destination: $DEST_FILE"
+ls -lh "$DEST_FILE"

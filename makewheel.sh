@@ -32,6 +32,18 @@ echo "Copying wheel to font editor..."
 cp "$WHEEL_FILE" "$DEST_FILE"
 
 echo ""
+echo "Creating wheels manifest..."
+# Create a JSON manifest of wheel files for GitHub Pages
+cat > "$DEST_DIR/wheels.json" << EOF
+{
+  "wheels": [
+    "$WHEEL_NAME"
+  ]
+}
+EOF
+echo "Manifest created: $DEST_DIR/wheels.json"
+
+echo ""
 echo "Wheel built successfully!"
 echo "Source: $WHEEL_FILE"
 echo "Destination: $DEST_FILE"

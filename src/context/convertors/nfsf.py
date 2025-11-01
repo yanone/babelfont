@@ -1,5 +1,16 @@
 from datetime import datetime
-from context import Glyph, Layer, Node, Shape, Master, Guide, Anchor, Axis, Instance
+from context import (
+    Anchor,
+    Axis,
+    Features,
+    Glyph,
+    Guide,
+    Instance,
+    Layer,
+    Master,
+    Node,
+    Shape,
+)
 from context.convertors import BaseConvertor
 from pathlib import Path
 import orjson
@@ -80,8 +91,12 @@ class Context(BaseConvertor):
     def _load_features(self):
         path = os.path.join(self.filename, "features.fea")
         if os.path.isfile(path):
-            f = open(path, "r")
-            self.font.features = f.read()
+            with open(path, "r") as f:
+                fea_content = f.read()
+                # Don't validate glyph names during loading to allow
+                # round-tripping of features that reference glyphs
+                # not present in the current font
+                self.font.features = Features.from_fea(fea_content)
 
     def _save(self):
         path = Path(self.filename)

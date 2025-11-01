@@ -25,7 +25,7 @@ class Glyph(BaseObject, _GlyphFields):
     _write_one_line = True
 
     @property
-    def context_filename(self):
+    def babelfont_filename(self):
         return os.path.join("glyphs", (userNameToFileName(self.name) + ".nfsglyph"))
 
 
@@ -57,4 +57,3 @@ class GlyphList(dict):
             return result
         else:
             raise StopIteration
-
